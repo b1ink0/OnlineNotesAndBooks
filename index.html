@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *
+    {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body
+    {
+        width: 100%;
+        min-height: 100vh;
+        background: #A6B1E1;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        border:#424874 solid 5px;
+        border-bottom: none;
+    }
+    .book
+    {
+        width: 200px;
+        height: 300px;
+        background: red;
+        position: relative;
+        transform: perspective(1000px) translateX(0px) translateY(0px) translateZ(0px) rotateZ(0deg) rotateY(60deg) rotateX(0deg);
+        transform-style: preserve-3d ;
+        transform-origin: 50% 50%;
+        transition: all 0.5s;
+        margin-top: 80px;
+        margin-left: 10px;
+    }
+    .book::before
+    {
+        width: 100%;
+        height: 20px;
+        content: '';
+        position:absolute;
+        background: #000;
+        transform: translateY(310px) rotateX(45deg) translateX(0px) translateY(0px) translateZ(-20px);
+        border-radius: 50%;
+        z-index: 100;
+        filter: blur(20px);
+    }
+    
+    .books::before
+    {
+        width: 100%;
+        height: 100px;
+        content: '';
+        position:absolute;
+        background: #424874;
+        transform: translateY(5px) rotateX(45deg) translateX(0px) translateY(0px) translateZ(-20px);
+        
+    }
+    
+    
+    .book span 
+    {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background: blue;
+        transform-origin: 50% 50%;
+
+    }
+    .book span:nth-child(1)
+    {
+        transform: rotateX(0deg) translateZ(0px) rotateY(0deg) translateX(0px) translateY(0px) ;
+        background:rgb(255, 255, 255);
+        border: rgb(139, 139, 139) solid 2px;
+        z-index: 12;
+    }
+    
+    .book span:nth-child(7)
+    {
+        transform: rotateX(0deg) translateZ(1px) rotateY(0deg)  translateX(0px) translateY(50.5px);
+        height: 50px;
+        background:rgb(180, 73, 59);
+        z-index: 15;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-top: rgb(136, 136, 136) solid 2px;
+        border-bottom: rgb(136, 136, 136) solid 2px;
+        opacity: 1;
+        transition: all 0.5s;
+    }
+    .book span:nth-child(2)
+    {
+        transform: rotateY(90deg) translateZ(-100px) translateX(20px) translateY(0px) scaleX(0.2);
+        background: rgb(167, 167, 167);
+        border: rgb(136, 136, 136) solid 2px;
+        z-index: 14;
+    }
+    .book span:nth-child(8)
+    {
+        transform: rotateY(90deg) translateZ(-100.1px) translateX(19px) translateY(50.5px) scaleX(0.212);
+        background: rgb(180, 73, 59);
+        height: 50px;
+        border-top: rgb(136, 136, 136) solid 2px;
+        border-bottom: rgb(136, 136, 136) solid 2px;
+        z-index: 14;
+    }
+    .book span:nth-child(3)
+    {
+        transform: rotateY(90deg) translateZ(100px) translateX(20px) translateY(0px) scaleX(0.2);
+        background: green;
+    }
+    .book span:nth-child(4)
+    {
+        transform: rotateX(0deg) translateZ(-40px) rotateY(0deg) translateX(0px) translateY(0px) ;
+        background:white;
+    }
+    .book span:nth-child(5)
+    {
+        transform: rotateY(90deg) rotateX(90deg) rotateZ(0deg) translateZ(150px) translateX(20px) translateY(0px) scaleX(0.2) scaleY(0.665);
+        background: cyan;
+    }
+    .book span:nth-child(6)
+    {
+        transform: rotateY(90deg) rotateX(90deg) rotateZ(0deg) translateZ(-150px) translateX(20px) translateY(0px) scaleX(0.2) scaleY(0.665);
+        background: orange;
+    }
+    .text h1
+    {
+        font-size: 45px;
+        position: absolute;
+        top: -4px;
+        color: white;
+        text-align: center;
+        font-family: monospace;
+    }
+    .book:hover
+    {
+        transform: perspective(1000px) translateX(-5px) translateY(0px) translateZ(60px)  rotateZ(0deg) rotateY(0deg) rotateX(0deg);
+    }
+    .book:hover .text
+    {
+        opacity: 0;
+    }
+    .book .pdf 
+    {
+        transform: rotateX(0deg) translateZ(0px) rotateY(0deg) translateX(0px) translateY(0px) ;
+        background:rgba(255, 0, 0, 0);
+        border: rgb(139, 139, 139) solid 2px;
+        z-index: 30;
+    }
+    .book span iframe
+    {
+        width: 195px;
+        height: 295px;
+        z-index: 20;
+        overflow: hidden;
+        opacity: 0;
+        transition: all 0.5;
+    }
+    .book:hover span iframe
+    {
+        opacity: 1;
+    }
+    .downBtn
+    {
+        position: absolute;
+        top: 10PX;
+        width: 100px;
+        height: 30px;
+        right: 50px;
+        border:none;
+        border-radius: 2px;
+        font-size: 20px;
+        background: rgb(129, 70, 70);
+        color: white;
+        cursor: pointer;
+        outline: none;
+        z-index: 50;
+    }
+    .downBtn:hover
+    {
+        background: rgb(105, 41, 41);
+    }
+    /* .book
+    {
+        position: absolute;
+    } */
+    .grid
+    {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    /* .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 0.2fr 1fr;
+        gap: 0px 0px;
+        grid-template-areas:
+        ". ."
+        ". .";
+    } */
+    nav
+    {
+        top: 0px;
+        width: 100%;
+        height: 40px;
+        background: #424874;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        z-index: 100;
+        position: fixed;
+    }
+    nav h1
+    {
+        position:absolute;
+        left: 0px;
+        color: white;
+        margin-left: 40px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+    }
+    nav div 
+    {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-items: center;
+        position: absolute;
+        right: 0px;
+        margin-right:40px;
+    }
+    nav div button
+    {
+        margin-right: 40px;
+        height: 100%;
+        width: 80px;
+        background: none;
+        color: white;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        border:none;
+        font-size: 25px;
+        outline: none;
+    }
+    nav div button:hover
+    {
+        background: #646BA6;
+    }
+    .books
+    {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+    .booksRemove
+    {
+        display: none;
+    }
+    .card
+    {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        background: #A6B1E1;
+        transition: opacity 0.3s ease 0.3s;
+        opacity: 1;
+    }
+    .cardRemove
+    {
+        display: none;
+    }
+    .fadeOut
+    {
+        opacity: 0;
+        pointer-events: none;
+    }
+    .fadeIn
+    {
+        opacity: 1;
+        pointer-events: all;
+    }
+    .cardNotes
+    {
+        border-radius: 10px;
+        margin:40px;
+        top: 100px;
+        width: 300px;
+        height: 300px;
+        background: #D6E5E3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        border: #424874 solid 4px ;
+        box-shadow:
+        -10px -10px 0px 0px rgba(83, 88, 122,0.5), 
+        5px 5px 15px 5px rgba(0,0,0,0);
+        transition: all 0.5s;
+        cursor: pointer;
+    }
+    .cardNotes:hover
+    {
+        box-shadow:
+        -15px -15px 0px 0px rgba(83, 88, 122,0.5), 
+        5px 5px 15px 5px rgba(0,0,0,0);
+        transform: scale(1.01);
+        background: #ddecea;
+    }
+    .cardNotes h1
+    {
+        color: rgb(39, 39, 39);
+        border-bottom: #424874 solid 5px ;
+        font-size: 70px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .cardNotes p
+    {
+        color: rgb(39, 39, 39);
+        font-size: 25px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .cardBooks h1
+    {
+        color: rgb(39, 39, 39);
+        font-size: 70px;
+        border-bottom: #424874 solid 5px ;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .cardBooks
+    {
+        border-radius: 10px;
+        margin:40px;
+        top: 100px;
+        width: 300px;
+        height: 300px;
+        background: #D6E5E3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: #424874 solid 4px ;
+        transition: all 0.5s;
+        box-shadow:
+        -10px -10px 0px 0px rgba(83, 88, 122,0.5), 
+        5px 5px 15px 5px rgba(0,0,0,0);
+        cursor: pointer;
+    }
+    .cardBooks:hover
+    {
+        box-shadow:
+        -15px -15px 0px 0px rgba(83, 88, 122,0.5), 
+        5px 5px 15px 5px rgba(0,0,0,0);
+        transform: scale(1.01);
+        background: #ddecea;
+    }
+    @media only screen and (max-width: 700px) {
+        .card
+        {
+            height: 100vh;
+            align-items: none;
+        }
+        nav h1
+        {
+            font-size: 20px;
+            margin-left: 10px;
+        }
+        nav div 
+        {
+            margin-right: 10px;
+        }
+        nav div button
+        {
+            margin-right: 0px;
+            font-size: 20px;
+            width: 65px;
+        }
+        .cardNotes
+        {
+            transform: scale(0.8);
+            margin: 10px;
+            top: 10px;
+        }
+        .cardNotes:hover
+        {
+            transform: scale(0.9);
+        }
+        .cardBooks
+        {
+            transform: scale(0.8);
+            margin: 10px;
+        }
+        .cardBooks:hover
+        {
+            transform: scale(0.9);
+            
+        }
+}    
+    body bookBottom
+    {
+        position:absolute;
+        width: 100%;
+        height: 100px;
+        background: #424874;
+    }
+</style>
+<body>
+    <div class="grid">
+        <nav>
+            <h1>Notes And Books</h1>
+            <div>
+                <button onclick="home()">Home</button>
+                <button>Notes</button>
+                <button onclick="book()">Books</button>
+            </div>
+        </nav>
+    <div class="card">
+        <div class="cardNotes">
+            <h1>
+                Notes
+            </h1>
+        </div>
+        <div class="cardBooks" onclick="book()">
+            <h1>
+                Books
+            </h1>
+        </div>
+    </div>
+    <div class="books booksRemove">
+    <div class="book">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span class="text">
+                <h1>PPS</h1>
+            </span>
+            <span></span>
+            <span class="pdf">
+                <iframe src="" width="640" height="480"></iframe>
+                <button onClick="location.href = ''" class="downBtn">Download</button>
+            </span>
+    </div>
+    <div class="book">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span class="text">
+            <h1>SME</h1>
+        </span>
+        <span></span>
+        <span class="pdf">
+            <iframe src="" width="640" height="480"></iframe>
+            <button onClick="location.href = ''" class="downBtn">Download</button>
+        </span>
+    </div>
+    <div class="book">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span class="text">
+            <h1>M-1</h1>
+        </span>
+        <span></span>
+        <span class="pdf">
+            <iframe src="" width="640" height="480"></iframe>
+            <button onClick="location.href = ''" class="downBtn">Download</button>
+        </span>
+    </div>
+    <div class="book">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span class="text">
+            <h1>CHEM</h1>
+        </span>
+        <span></span>
+        <span class="pdf">
+            <iframe src="" width="640" height="480"></iframe>
+            <button onClick="location.href = ''" class="downBtn">Download</button>
+        </span>
+    </div>
+    </div>
+    </div>
+<script>
+    const booksBtn = document.querySelector('.cardBooks')
+    const card = document.querySelector('.card')
+    const books = document.querySelector('.books')
+    function book(){
+        //  card.classList.add('fadeOut');
+        card.classList.add('cardRemove');
+       books.classList.remove('booksRemove');
+        // books.classList.remove('fadeOut');
+    }
+    function home(){
+        books.classList.add('booksRemove')
+        // books.classList.add('fadeOut')
+        //  card.classList.remove('fadeOut')
+       card.classList.remove('cardRemove')
+    }
+</script>
+</body>
+</html>
