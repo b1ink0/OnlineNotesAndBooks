@@ -29,6 +29,7 @@ body
     transition: all 0.5s;
     margin-top: 80px;
     margin-left: 10px;
+    cursor: pointer;
 }
 .book::before
 {
@@ -306,6 +307,20 @@ nav div button:hover
     5px 5px 15px 5px rgba(0,0,0,0);
     transition: all 0.5s;
     cursor: pointer;
+    animation-name: change;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+}
+@keyframes change {
+    0%{box-shadow:
+        -10px -10px 0px 0px rgba(83, 88, 122,0.5), 
+        5px 5px 15px 5px rgba(0,0,0,0);}
+    50%{box-shadow:
+        -15px -15px 0px 0px rgba(83, 88, 122,0.5), 
+        5px 5px 15px 5px rgba(0,0,0,0);}
+    100%{box-shadow:
+        -10px -10px 0px 0px rgba(83, 88, 122,0.5), 
+        5px 5px 15px 5px rgba(0,0,0,0);}
 }
 .cardNotes:hover
 {
@@ -352,6 +367,9 @@ nav div button:hover
     -10px -10px 0px 0px rgba(83, 88, 122,0.5), 
     5px 5px 15px 5px rgba(0,0,0,0);
     cursor: pointer;
+    animation-name: change;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
 }
 .cardBooks:hover
 {
@@ -403,10 +421,14 @@ nav div button:hover
         
     }
 }    
-body bookBottom
+body .bookBottom
 {
     position:absolute;
     width: 100%;
     height: 100px;
     background: #424874;
+    transform-style: preserve-3d;
+    top: 709px;
+    z-index: -1;
+    transform: translateY(5px) rotateX(45deg) translateX(0px) translateY(0px) translateZ(-20px);
 }
